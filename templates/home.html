@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Automation - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a66c2;
+            --primary-dark: #004182;
+            --success-color: #057642;
+            --error-color: #d32f2f;
+            --text-color: #333;
+            --bg-color: #f3f2ef;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header h1 i {
+            font-size: 1.8rem;
+        }
+
+        .header .logout-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            background-color: transparent;
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .header .logout-btn:hover {
+            background-color: var(--error-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .header .logout-btn i {
+            font-size: 0.9rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
+        .checkmark {
+            position: relative;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 3px;
+            margin-right: 0.5rem;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #b71c1c;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success {
+            background-color: #e6f3e6;
+            color: var(--success-color);
+            border: 1px solid #c8e6c9;
+        }
+
+        .error {
+            background-color: #fdecea;
+            color: var(--error-color);
+            border: 1px solid #ffcdd2;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-buttons a {
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-buttons a:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .action-buttons a i {
+            font-size: 1.2rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fab fa-linkedin"></i> LinkedIn Automation</h1>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        
+        {% if error %}
+        <div class="error" style="display: block;">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% endif %}
+        
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-users"></i>
+                    <h2 class="card-title">Lead Extraction</h2>
+                </div>
+                <p class="card-description">
+                    Extract LinkedIn leads from your current search results. The system will automatically scroll through all available results and save them to a CSV file.
+                </p>
+                <div class="form-group">
+                    <label for="targetCount">Number of Leads to Extract</label>
+                    <input type="number" id="targetCount" name="targetCount" value="30" min="1" max="1000" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="extractProfileData" checked>
+                        <span class="checkmark"></span>
+                        Extract Profile Data (Headline & About)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="useAiFiltering">
+                        <span class="checkmark"></span>
+                        Use AI Filtering (Requires OpenAI API Key)
+                    </label>
+                </div>
+                <div class="form-group" id="apiKeyGroup" style="display: none;">
+                    <label for="openaiApiKey">OpenAI API Key</label>
+                    <input type="password" id="openaiApiKey" name="openaiApiKey" placeholder="Enter your OpenAI API key" class="form-input">
+                </div>
+                <div class="button-group">
+                    <button id="extractBtn" class="btn btn-primary" onclick="extractLeads()">
+                        <i class="fas fa-download"></i> Extract Leads
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h2 class="card-title">Quick Stats</h2>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalLeads">-</div>
+                        <div class="stat-label">Total Leads</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="lastExtraction">-</div>
+                        <div class="stat-label">Last Extraction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Show/hide API key field based on AI filtering checkbox
+        document.getElementById('useAiFiltering').addEventListener('change', function() {
+            const apiKeyGroup = document.getElementById('apiKeyGroup');
+            if (this.checked) {
+                apiKeyGroup.style.display = 'block';
+            } else {
+                apiKeyGroup.style.display = 'none';
+            }
+        });
+
+        async function extractLeads() {
+            const resultDiv = document.getElementById('result');
+            const extractBtn = document.getElementById('extractBtn');
+            const targetCount = document.getElementById('targetCount').value;
+            const extractProfileData = document.getElementById('extractProfileData').checked;
+            const useAiFiltering = document.getElementById('useAiFiltering').checked;
+            const openaiApiKey = document.getElementById('openaiApiKey').value;
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+            resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting leads...';
+            extractBtn.disabled = true;
+            
+            try {
+                const formData = new FormData();
+                formData.append('target_count', targetCount);
+                formData.append('extract_profile_data', extractProfileData.toString());
+                formData.append('use_ai_filtering', useAiFiltering.toString());
+                if (openaiApiKey) {
+                    formData.append('openai_api_key', openaiApiKey);
+                }
+                
+                const response = await fetch('/extract-leads', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'success';
+                    resultDiv.innerHTML = `
+                        <i class="fas fa-check-circle"></i> ${data.message}
+                        <div class="action-buttons">
+                            <a href="/view-leads">
+                                <i class="fas fa-table"></i> View Leads
+                            </a>
+                            <a href="/download/${data.filename}" download>
+                                <i class="fas fa-file-download"></i> Download CSV
+                            </a>
+                        </div>
+                    `;
+                    updateStats(data.count);
+                } else {
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred while extracting leads'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
+            } finally {
+                extractBtn.disabled = false;
+            }
+        }
+
+        function updateStats(count) {
+            const totalLeads = document.getElementById('totalLeads');
+            const lastExtraction = document.getElementById('lastExtraction');
+            
+            if (count) {
+                totalLeads.textContent = count;
+                lastExtraction.textContent = new Date().toLocaleTimeString();
+            }
+        }
+
+        async function logout() {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    alert(data.error || 'An error occurred while logging out');
+                }
+            } catch (error) {
+                alert('An error occurred while processing your request');
+            }
+        }
+    </script>
+</body>
+</html> 

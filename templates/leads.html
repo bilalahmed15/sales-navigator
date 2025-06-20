@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Leads Extractor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f3f2ef;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0a66c2;
+            text-align: center;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #0a66c2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        button:hover {
+            background-color: #004182;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #e6f3e6;
+            color: #2e7d32;
+        }
+        .error {
+            background-color: #fdecea;
+            color: #d32f2f;
+        }
+        .download-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0a66c2;
+            text-decoration: none;
+        }
+        .download-link:hover {
+            text-decoration: underline;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .nav-links a {
+            color: #0a66c2;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a href="/">Home</a> | <a href="/leads">Leads Extractor</a>
+        </div>
+        <h1>LinkedIn Leads Extractor</h1>
+        <div class="button-group">
+            <button id="extractBtn" onclick="extractLeads()">Extract Leads</button>
+            <button id="closeBrowserBtn" onclick="closeBrowser()">Close Browser</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function extractLeads() {
+            const resultDiv = document.getElementById('result');
+            const extractBtn = document.getElementById('extractBtn');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+            resultDiv.textContent = 'Extracting leads...';
+            extractBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/extract-leads', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'success';
+                    resultDiv.innerHTML = `
+                        ${data.message}<br>
+                        <a href="/download/${data.filename}" class="download-link" download>
+                            Download CSV File (${data.count} leads)
+                        </a>
+                    `;
+                } else {
+                    resultDiv.className = 'error';
+                    resultDiv.textContent = data.error || 'An error occurred while extracting leads';
+                }
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.textContent = 'An error occurred while processing your request';
+            } finally {
+                extractBtn.disabled = false;
+            }
+        }
+
+        async function closeBrowser() {
+            const resultDiv = document.getElementById('result');
+            const closeBtn = document.getElementById('closeBrowserBtn');
+            
+            closeBtn.disabled = true;
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+            resultDiv.textContent = 'Closing browser...';
+            
+            try {
+                const response = await fetch('/close-browser', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'success';
+                    resultDiv.textContent = data.message;
+                } else {
+                    resultDiv.className = 'error';
+                    resultDiv.textContent = data.error || 'An error occurred while closing the browser';
+                }
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.textContent = 'An error occurred while processing your request';
+            } finally {
+                closeBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html> 

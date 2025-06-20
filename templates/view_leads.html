@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View LinkedIn Leads</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a66c2;
+            --primary-dark: #004182;
+            --success-color: #057642;
+            --text-color: #333;
+            --bg-color: #f3f2ef;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            font-size: 0.92rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header h1 i {
+            font-size: 1.8rem;
+        }
+
+        .stats {
+            background-color: #f8f9fa;
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats i {
+            color: var(--primary-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #666;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background-color: #046c3b;
+            transform: translateY(-2px);
+        }
+
+        .table-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 480px;
+            min-height: 200px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+            vertical-align: top;
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        tr {
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f6f6f6;
+        }
+
+        tr:last-child {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #e3e9f0;
+        }
+
+        td a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.92rem;
+        }
+
+        td a:hover {
+            color: var(--primary-dark);
+        }
+
+        td a i {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .pagination button:disabled {
+            background-color: #eee;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .match-badge, .score-badge {
+            font-size: 0.85rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 10px;
+            font-weight: 600;
+            min-width: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .match-yes {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .match-no {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .score-badge {
+            color: white;
+        }
+
+        td .match-badge, td .score-badge {
+            white-space: nowrap;
+            word-break: keep-all;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 900px) {
+            .table-container {
+                max-height: 320px;
+            }
+            table {
+                min-width: 600px;
+            }
+        }
+        @media (max-width: 600px) {
+            .table-container {
+                max-height: 200px;
+            }
+            table {
+                min-width: 400px;
+            }
+            th, td {
+                padding: 0.3rem 0.4rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-users"></i> LinkedIn Leads</h1>
+            <div class="stats">
+                <i class="fas fa-chart-bar"></i>
+                Total Leads: {{ count }}
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <a href="/download/{{ filename }}" class="btn btn-success" download>
+                <i class="fas fa-file-download"></i> Download CSV
+            </a>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>LinkedIn Profile URL</th>
+                        {% if data and data[0] and data[0].get('headline') %}
+                        <th>Headline</th>
+                        <th>About</th>
+                        {% endif %}
+                        {% if data and data[0] and data[0].get('match') %}
+                        <th>Match</th>
+                        <th>Reason</th>
+                        <th>Score</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>
+                            <a href="{{ row['url'] }}" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{ row['url'] }}
+                            </a>
+                        </td>
+                        {% if row.get('headline') %}
+                        <td>{{ row['headline'][:100] }}{% if row['headline']|length > 100 %}...{% endif %}</td>
+                        <td>{{ row['about'][:150] }}{% if row['about']|length > 150 %}...{% endif %}</td>
+                        {% endif %}
+                        {% if row.get('match') %}
+                        <td>
+                            <span class="match-badge {% if row['match'] == 'YES' %}match-yes{% else %}match-no{% endif %}">
+                                {{ row['match'] }}
+                            </span>
+                        </td>
+                        <td>{{ row['reason'][:100] }}{% if row['reason']|length > 100 %}...{% endif %}</td>
+                        <td>
+                            {% set score = row['score']|float %}
+                            <span class="score-badge" style="background-color: {% if score >= 0.7 %}var(--success-color){% elif score >= 0.4 %}#ff9800{% else %}#f44336{% endif %};">
+                                {{ "%.2f"|format(score) }}
+                            </span>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
