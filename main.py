@@ -36,4 +36,4 @@ driver.find_element(By.ID,"username").send_keys("s.bilal1829@gmail.com")
 driver.find_element(By.ID,"password").send_keys("Bilal1874")
 driver.find_element(By.CLASS_NAME,"btn__primary--large").click()
 
-driver.get("https://www.linkedin.com/sales/search/people?query=(spellCorrectionEnabled%3Atrue%2CrecentSearchParam%3A(id%3A3756865305%2CdoLogHistory%3Atrue)%2Ckeywords%3AAnti-corrosion)&sessionId=p7n9oaNfRVOWg9ReV5K7GA%3D%3D")
+driver.get("https://www.linkedin.com/sales/search")

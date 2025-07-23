@@ -259,6 +259,19 @@
                 </button>
             </form>
 
+            <form id="twofaForm" style="display:none; margin-top:1.5rem;">
+                <div class="form-group">
+                    <label for="authCode">Authentication Code</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="authCode" name="authCode" placeholder="Enter the code you received" required autocomplete="one-time-code">
+                    </div>
+                </div>
+                <button type="submit">
+                    <i class="fas fa-unlock"></i> Submit Code
+                </button>
+            </form>
+
             <div id="result"></div>
 
             <div class="footer">
@@ -268,46 +281,82 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        const loginForm = document.getElementById('loginForm');
+        const twofaForm = document.getElementById('twofaForm');
+        const resultDiv = document.getElementById('result');
+        const loginBtn = loginForm.querySelector('button[type="submit"]');
+        const twofaBtn = twofaForm.querySelector('button[type="submit"]');
+        const originalLoginBtnContent = loginBtn.innerHTML;
+
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const resultDiv = document.getElementById('result');
-            const submitBtn = document.querySelector('button[type="submit"]');
-            const originalBtnContent = submitBtn.innerHTML;
-            
             resultDiv.style.display = 'block';
             resultDiv.className = '';
             resultDiv.innerHTML = '<div class="loading"></div> Signing in...';
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<div class="loading"></div> Signing in...';
-
-            const formData = new FormData(e.target);
-            
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<div class="loading"></div> Signing in...';
+            const formData = new FormData(loginForm);
             try {
                 const response = await fetch('/login', {
                     method: 'POST',
                     body: formData
                 });
-                
                 const data = await response.json();
-                
-                if (response.ok) {
+                if (response.ok && data.success) {
                     resultDiv.className = 'success';
                     resultDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${data.message}`;
-                    // Redirect to home page after successful login
-                    setTimeout(() => {
-                        window.location.href = data.redirect;
-                    }, 1000);
+                    setTimeout(() => { window.location.href = data.redirect; }, 1000);
+                } else if (data['2fa_required']) {
+                    // Show 2FA form
+                    loginForm.style.display = 'none';
+                    twofaForm.style.display = 'block';
+                    resultDiv.className = '';
+                    resultDiv.innerHTML = `<i class='fas fa-key'></i> ${data.message}`;
                 } else {
                     resultDiv.className = 'error';
                     resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred'}`;
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnContent;
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = originalLoginBtnContent;
                 }
             } catch (error) {
                 resultDiv.className = 'error';
                 resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnContent;
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = originalLoginBtnContent;
+            }
+        });
+
+        twofaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+            resultDiv.innerHTML = '<div class="loading"></div> Verifying code...';
+            twofaBtn.disabled = true;
+            twofaBtn.innerHTML = '<div class="loading"></div> Verifying...';
+            const code = document.getElementById('authCode').value;
+            try {
+                const formData = new FormData();
+                formData.append('code', code);
+                const response = await fetch('/submit-2fa', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    resultDiv.className = 'success';
+                    resultDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${data.message}`;
+                    setTimeout(() => { window.location.href = data.redirect; }, 1000);
+                } else {
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'Invalid code or error'}`;
+                    twofaBtn.disabled = false;
+                    twofaBtn.innerHTML = '<i class="fas fa-unlock"></i> Submit Code';
+                }
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while verifying the code';
+                twofaBtn.disabled = false;
+                twofaBtn.innerHTML = '<i class="fas fa-unlock"></i> Submit Code';
             }
         });
     </script>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Campaign Message | LinkedIn Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3f2ef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.88);
+            box-shadow: 0 8px 32px rgba(10,102,194,0.13), 0 1.5px 8px rgba(10,102,194,0.07);
+            border-radius: 2.2rem;
+            padding: 3.2rem 2.5rem 2.5rem 2.5rem;
+            max-width: 540px;
+            width: 100%;
+            min-width: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(10,102,194,0.08);
+            box-sizing: border-box;
+        }
+        .icon-hero {
+            font-size: 3.2rem;
+            color: #0a66c2;
+            background: linear-gradient(90deg, #0a66c2 60%, #00c6fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.1rem;
+        }
+        .headline {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0a66c2;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            color: #444;
+            font-size: 1.18rem;
+            margin-bottom: 2.3rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        .form-group {
+            width: 100%;
+            margin-bottom: 2.1rem;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: 700;
+            color: #0a66c2;
+            margin-bottom: 0.7rem;
+            display: block;
+            font-size: 1.18rem;
+        }
+        input, textarea {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            padding: 1.1rem 1.2rem;
+            border-radius: 14px;
+            border: 2px solid #e3eaf6;
+            font-size: 1.13rem;
+            background: #f7faff;
+            color: #23272f;
+            box-shadow: 0 1px 4px rgba(10,102,194,0.04);
+            transition: border 0.2s, background 0.2s, box-shadow 0.2s;
+            margin-top: 0.1rem;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #0a66c2;
+            background: #eaf4ff;
+            box-shadow: 0 2px 12px rgba(10,102,194,0.10);
+        }
+        input:hover, textarea:hover {
+            border-color: #00c6fb;
+            background: #f0f7ff;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .btn-campaign {
+            width: 100%;
+            background: linear-gradient(90deg, #0a66c2 60%, #00c6fb 100%);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 1.3rem 0;
+            font-size: 1.25rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(10,102,194,0.13);
+            margin-top: 0.7rem;
+            transition: background 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        .btn-campaign:hover {
+            background: linear-gradient(90deg, #004182 60%, #0a66c2 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+        #status {
+            margin-top: 2rem;
+            font-size: 1.13rem;
+            text-align: center;
+        }
+        .success { color: #057642; }
+        .error { color: #d32f2f; }
+        @media (max-width: 700px) {
+            .glass-card { padding: 1.2rem 0.3rem; max-width: 98vw; }
+            .headline { font-size: 1.3rem; }
+            input, textarea { font-size: 1.05rem; padding: 1rem 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <div class="icon-hero"><i class="fas fa-paper-plane"></i></div>
+        <div class="headline">Launch Your LinkedIn Campaign</div>
+        <div class="subtitle">Craft a message that stands out and connect with <b>{{ count }}</b> top leads in one go. Make your outreach memorable!</div>
+        <form id="messageForm" style="width:100%;">
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="e.g. Let's Connect & Collaborate!" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write a compelling message to spark a conversation..." required></textarea>
+            </div>
+            <button class="btn-campaign" type="submit"><i class="fas fa-rocket"></i> Send Campaign to All Leads</button>
+        </form>
+        <div id="status"></div>
+    </div>
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Launching your campaign...';
+            statusDiv.className = '';
+            const formData = new FormData(this);
+            try {
+                const response = await fetch('/start-messaging', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    statusDiv.textContent = data.message;
+                    statusDiv.className = 'success';
+                } else {
+                    statusDiv.textContent = data.error || 'An error occurred.';
+                    statusDiv.className = 'error';
+                }
+            } catch (err) {
+                statusDiv.textContent = 'An error occurred while sending messages.';
+                statusDiv.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -12,279 +12,263 @@
             --primary-dark: #004182;
             --success-color: #057642;
             --error-color: #d32f2f;
-            --text-color: #333;
-            --bg-color: #f3f2ef;
-            --card-bg: #ffffff;
-            --border-radius: 12px;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --text-color: #23272f;
+            --bg-color: #f6f8fa;
+            --header-bg: #fff;
+            --card-bg: #fff;
+            --border-radius: 16px;
+            --shadow: 0 2px 16px rgba(20,40,80,0.07);
+            --transition: all 0.2s cubic-bezier(.4,0,.2,1);
         }
-
-        * {
+        html, body {
+            height: 100%;
+        }
+        body {
+            min-height: 100vh;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
-            min-height: 100vh;
         }
-
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .header {
-            background-color: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            margin: 0;
+            padding: 2vw;
             display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+        .header-bar {
+            background: var(--header-bg);
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            animation: slideDown 0.5s ease;
         }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .header h1 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .header h1 i {
-            font-size: 1.8rem;
-        }
-
-        .header .logout-btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            background-color: transparent;
-            color: var(--error-color);
-            border: 1px solid var(--error-color);
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .header .logout-btn:hover {
-            background-color: var(--error-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .header .logout-btn i {
-            font-size: 0.9rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
+        .header-left {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.5rem;
         }
-
-        .card-header i {
-            font-size: 2rem;
+        .header-logo {
+            font-size: 2.1rem;
             color: var(--primary-color);
         }
-
-        .card-title {
+        .header-title {
             font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--primary-dark);
+        }
+        .logout-btn {
+            background: transparent;
+            color: var(--error-color);
+            border: 1.5px solid var(--error-color);
+            border-radius: 10px;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-
-        .card-description {
-            color: #666;
-            margin-bottom: 1.5rem;
+        .logout-btn:hover {
+            background: var(--error-color);
+            color: #fff;
         }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ccc;
+        .card {
+            background: var(--card-bg);
             border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2.2rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
-
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-row {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .form-group {
+            flex: 1 1 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1.05rem;
+        }
+        .form-input, .base-prompt-area {
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            border: 1.5px solid #e3eaf6;
+            font-size: 1.08rem;
+            background: #f8faff;
+            color: var(--text-color);
+            transition: var(--transition);
+            box-shadow: 0 1px 4px rgba(10,102,194,0.04);
+        }
+        .form-input:focus, .base-prompt-area:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: #eaf4ff;
+        }
         .checkbox-label {
             display: flex;
             align-items: center;
             cursor: pointer;
             font-weight: 500;
+            gap: 0.5rem;
+            font-size: 1.01rem;
+        }
+        .checkbox-label input[type="checkbox"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            margin-right: 0.5rem;
+        }
+        .base-prompt-group {
+            position: relative;
             margin-bottom: 0.5rem;
         }
-
-        .checkbox-label input[type="checkbox"] {
-            width: auto;
-            margin-right: 0.5rem;
+        .base-prompt-label {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.08rem;
+            margin-bottom: 0.3rem;
         }
-
-        .checkmark {
-            position: relative;
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background-color: #fff;
-            border: 2px solid #ccc;
-            border-radius: 3px;
-            margin-right: 0.5rem;
+        .base-prompt-area {
+            min-height: 90px;
+            resize: vertical;
+            font-size: 1.12rem;
         }
-
-        .checkbox-label input[type="checkbox"]:checked + .checkmark {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .checkbox-label input[type="checkbox"]:checked + .checkmark:after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 2px;
-            width: 4px;
-            height: 8px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
         .button-group {
             display: flex;
-            gap: 1rem;
+            justify-content: flex-end; /* Aligns button to the right, use center for center alignment */
+            gap: 1.2rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
+            width: 100%;
+            box-sizing: border-box;
         }
-
         .btn {
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2.2rem;
             border: none;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-weight: 500;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.7rem;
             text-decoration: none;
-            flex: 1;
-            justify-content: center;
+            background: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(10,102,194,0.08);
+            min-width: 180px; /* Prevents button from shrinking too much */
+            max-width: 100%;
+            box-sizing: border-box;
         }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
         .btn-primary:hover {
-            background-color: var(--primary-dark);
+            background: var(--primary-dark);
+            transform: translateY(-2px) scale(1.04);
         }
-
-        .btn-danger {
-            background-color: var(--error-color);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #b71c1c;
-        }
-
         .btn:disabled {
-            background-color: #ccc;
+            background: #ccc;
+            color: #fff;
             cursor: not-allowed;
         }
-
+        .btn-danger {
+            background: var(--error-color);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 2rem 1.2rem 2rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .stat-item {
+            background: #f8f9fa;
+            padding: 1.1rem 1.5rem;
+            border-radius: 12px;
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(10,102,194,0.04);
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        .result-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 2rem 1.2rem 2rem;
+            margin-bottom: 1rem;
+        }
         #result {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
+            margin: 0;
+            padding: 0;
             border-radius: var(--border-radius);
             display: none;
             animation: fadeIn 0.3s ease;
         }
-
         .success {
             background-color: #e6f3e6;
             color: var(--success-color);
             border: 1px solid #c8e6c9;
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
         }
-
         .error {
             background-color: #fdecea;
             color: var(--error-color);
             border: 1px solid #ffcdd2;
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
         }
-
         .action-buttons {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
-
         .action-buttons a {
             flex: 1;
             text-align: center;
@@ -299,169 +283,1040 @@
             justify-content: center;
             gap: 0.5rem;
         }
-
         .action-buttons a:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
         }
-
         .action-buttons a i {
             font-size: 1.2rem;
         }
-
-        .stats {
+        .loader-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30, 42, 70, 0.45);
+            z-index: 9999;
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            align-items: center;
+            justify-content: center;
         }
-
-        .stat-item {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            flex: 1;
+        .loader-content {
+            background: #fff;
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(10,102,194,0.13);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .loader-spinner {
+            border: 6px solid #e3eaf6;
+            border-top: 6px solid var(--primary-color);
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.2rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loader-message {
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            font-weight: 600;
             text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
             margin-top: 0.5rem;
         }
-
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .container {
-                padding: 1rem;
+                padding: 1.2rem 0.5rem;
             }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+            .header-bar, .card, .stats-card, .result-card {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
-
-            .main-content {
-                grid-template-columns: 1fr;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 2vw;
             }
-
+            .header-title {
+                font-size: 1.2rem;
+            }
+            .header-logo {
+                font-size: 1.3rem;
+            }
+            .form-input, .base-prompt-area {
+                font-size: 0.98rem;
+                padding: 0.7rem 0.8rem;
+            }
+            .btn {
+                font-size: 0.98rem;
+                padding: 0.7rem 1.2rem;
+            }
             .button-group {
+                justify-content: center;
                 flex-direction: column;
+                align-items: stretch;
             }
+            .btn {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+        .main-flex {
+            display: flex;
+            gap: 2.5vw;
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            box-sizing: border-box;
+            overflow: visible;
+        }
+        .col-left, .col-right {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 0;
+            min-height: 0;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: visible;
+        }
+        .card, .stats-card, .result-card {
+            min-height: 0;
+            max-height: none;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: visible;
+        }
+        @media (max-width: 1100px) {
+            .main-flex { flex-direction: column; gap: 2rem; }
+            .col-left, .col-right { max-width: 100%; }
+        }
+        /* Tabbed Interface Styles */
+        .tab-container {
+            width: 100%;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: visible;
+        }
+        .tab-buttons {
+            display: flex;
+            background-color: #f0f2f5;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        .tab-button {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            background-color: #f0f2f5;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            background-color: #fff;
+        }
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .download-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.2rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .download-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fab fa-linkedin"></i> LinkedIn Automation</h1>
-            <button class="logout-btn" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
-        </div>
-        
-        {% if error %}
-        <div class="error" style="display: block;">
-            <i class="fas fa-exclamation-circle"></i> {{ error }}
-        </div>
-        {% endif %}
-        
-        <div class="main-content">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-users"></i>
-                    <h2 class="card-title">Lead Extraction</h2>
-                </div>
-                <p class="card-description">
-                    Extract LinkedIn leads from your current search results. The system will automatically scroll through all available results and save them to a CSV file.
-                </p>
-                <div class="form-group">
-                    <label for="targetCount">Number of Leads to Extract</label>
-                    <input type="number" id="targetCount" name="targetCount" value="30" min="1" max="1000" class="form-input">
-                </div>
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="extractProfileData" checked>
-                        <span class="checkmark"></span>
-                        Extract Profile Data (Headline & About)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="useAiFiltering">
-                        <span class="checkmark"></span>
-                        Use AI Filtering (Requires OpenAI API Key)
-                    </label>
-                </div>
-                <div class="form-group" id="apiKeyGroup" style="display: none;">
-                    <label for="openaiApiKey">OpenAI API Key</label>
-                    <input type="password" id="openaiApiKey" name="openaiApiKey" placeholder="Enter your OpenAI API key" class="form-input">
-                </div>
-                <div class="button-group">
-                    <button id="extractBtn" class="btn btn-primary" onclick="extractLeads()">
-                        <i class="fas fa-download"></i> Extract Leads
-                    </button>
-                </div>
+    <div class="container" style="max-width: 1300px; margin: 0 auto; padding: 2vw 0; min-height: 100vh; height: auto; overflow: visible;">
+        <div class="header-bar">
+            <div class="header-left">
+                <span class="header-logo"><i class="fab fa-linkedin"></i></span>
+                <span class="header-title">LinkedIn Automation</span>
             </div>
+            <form method="post" action="/logout" style="margin:0;">
+                <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </form>
+        </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-chart-line"></i>
-                    <h2 class="card-title">Quick Stats</h2>
-                </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="totalLeads">-</div>
-                        <div class="stat-label">Total Leads</div>
+        <!-- Tabbed Interface -->
+        <div class="tab-container" style="margin: 2rem 0 2.5rem 0; width: 100%; box-shadow: var(--shadow); border-radius: var(--border-radius); background: #fff; overflow: visible;">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab('extractor')">Lead Extraction</button>
+                <button class="tab-button" onclick="switchTab('link')">Lead Extraction from Link</button>
+            </div>
+            <div id="extractor-tab" class="tab-content active" style="display: block; overflow: visible;">
+                <div class="main-flex" style="display: flex; gap: 2rem; flex-wrap: wrap; width: 100%; margin: 0; align-items: flex-start;">
+                    <div class="col-left" style="flex: 3 1 600px; min-width: 400px;">
+                        <div class="card" style="box-shadow: none; margin: 0; overflow: visible;">
+                            <div class="card-title"><i class="fas fa-sliders-h"></i> Lead Extraction Requirements</div>
+                            <form class="form-section">
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label for="targetCount">Number of Leads to Extract</label>
+                                        <input type="number" id="targetCount" name="target_count" value="30" min="1" max="1000" class="form-input">
+                                    </div>
+                                </div>
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label for="countryFilterInput">Country/Region Filter</label>
+                                        <div style="display:flex;gap:0.5rem;align-items:center;">
+                                            <input type="text" id="countryFilterInput" placeholder="e.g. Germany, United States, Canada" class="form-input">
+                                            <button type="button" id="addCountryBtn" class="btn" style="padding:0.5rem 1rem;min-width:unset;width:auto;">+</button>
+                                        </div>
+                                        <div id="countryTags" style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+                                        <small style="color: #666; font-size: 0.9rem; margin-top: 0.3rem;">Add multiple countries to filter results by location</small>
+                                    </div>
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px; align-self: flex-end;">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="includeCountry" checked>
+                                            Include Country (uncheck to exclude)
+                                        </label>
+                                        <small style="color: #666; font-size: 0.9rem; margin-top: 0.3rem;">When checked, includes people from these countries. When unchecked, excludes them.</small>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label for="positionFilterInput">Position/Title Filter</label>
+                                        <div style="display:flex;gap:0.5rem;align-items:center;">
+                                            <input type="text" id="positionFilterInput" placeholder="e.g. CEO, Manager, Director" class="form-input">
+                                            <button type="button" id="addPositionBtn" class="btn" style="padding:0.5rem 1rem;min-width:unset;width:auto;">+</button>
+                                        </div>
+                                        <div id="positionTags" style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+                                        <small style="color: #666; font-size: 0.9rem; margin-top: 0.3rem;">Add multiple job titles or positions to filter results</small>
+                                    </div>
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px; align-self: flex-end;">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="includePosition" checked>
+                                            Include Position (uncheck to exclude)
+                                        </label>
+                                        <small style="color: #666; font-size: 0.9rem; margin-top: 0.3rem;">When checked, includes people with these positions. When unchecked, excludes them.</small>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="extractProfileData" checked>
+                                            Extract Profile Data (Headline & About)
+                                        </label>
+                                    </div>
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="useAiFiltering">
+                                            Use AI Filtering (Requires OpenAI API Key)
+                                        </label>
+                                    </div>
+                                    <div class="form-group" id="apiKeyGroup" style="display: none; flex: 1 1 300px; min-width: 250px;">
+                                        <label for="openaiApiKey">OpenAI API Key</label>
+                                        <input type="password" id="openaiApiKey" name="openaiApiKey" placeholder="Enter your OpenAI API key" class="form-input">
+                                    </div>
+                                </div>
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group base-prompt-group" style="flex: 1 1 100%; min-width: 250px;">
+                                        <label for="basePrompt" class="base-prompt-label">Detailed Requirements (Base Prompt for AI Analysis)</label>
+                                        <textarea id="basePrompt" name="basePrompt" class="base-prompt-area" rows="3" placeholder="Describe your ideal client, industry, or requirements for AI analysis..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <button type="button" id="extractBtn" class="btn btn-primary" onclick="handleExtractLeads()">
+                                        <i class="fas fa-download"></i> Extract Leads
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="lastExtraction">-</div>
-                        <div class="stat-label">Last Extraction</div>
+                    <div class="col-right" style="flex: 1 1 320px; min-width: 260px; max-width: 400px;">
+                        <div class="card" style="margin: 0; overflow: visible;">
+                            <div class="card-title"><i class="fas fa-chart-line"></i> Dashboard & Analytics</div>
+                            <div class="stats-card" style="box-shadow:none; background:transparent; padding:0;">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="totalLeads">-</div>
+                                    <div class="stat-label">Total Leads</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="lastExtraction">-</div>
+                                    <div class="stat-label">Last Extraction</div>
+                                </div>
+                            </div>
+                            <div class="result-card" style="margin-top:1.5rem;">
+                                <div id="result"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="link-tab" class="tab-content" style="display: none; overflow: visible;">
+                <div class="main-flex" style="display: flex; gap: 2rem; flex-wrap: wrap; width: 100%; margin: 0; align-items: flex-start;">
+                    <div class="col-left" style="flex: 3 1 600px; min-width: 400px;">
+                        <div class="card" style="max-width: 800px; margin: 0 auto; box-shadow: none; overflow: visible;">
+                            <div class="card-title"><i class="fas fa-link"></i> Lead Extraction from LinkedIn URL</div>
+                            <form id="linkForm" class="form-section">
+                                <!-- LinkedIn URL and Target Count -->
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label for="linkedinUrl">LinkedIn Search URL:</label>
+                                        <input type="url" id="linkedinUrl" name="linkedin_url" class="form-input" placeholder="https://www.linkedin.com/sales/search/people?..." required>
+                                    </div>
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label for="targetCountLink">Number of Leads to Extract:</label>
+                                        <input type="number" id="targetCountLink" name="target_count" class="form-input" value="30" min="1" max="1000">
+                                    </div>
+                                </div>
+                                <!-- AI Filtering Options -->
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group" style="flex: 1 1 300px; min-width: 250px;">
+                                        <label for="openaiApiKeyLink">OpenAI API Key</label>
+                                        <input type="password" id="openaiApiKeyLink" name="openaiApiKey" placeholder="Enter your OpenAI API key" class="form-input">
+                                    </div>
+                                </div>
+                                <div class="form-row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                    <div class="form-group base-prompt-group" style="flex: 1 1 100%; min-width: 250px;">
+                                        <label for="basePromptLink" class="base-prompt-label">Detailed Requirements (Base Prompt for AI Analysis)</label>
+                                        <textarea id="basePromptLink" name="basePrompt" class="base-prompt-area" rows="3" placeholder="Describe your ideal client, industry, or requirements for AI analysis..."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="button-group">
+                                    <button type="button" id="extractFromLinkBtn" class="btn btn-primary" onclick="handleExtractFromLink()"><i class="fas fa-download"></i> Extract from Link</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-right" style="flex: 1 1 320px; min-width: 260px; max-width: 400px;">
+                        <div class="card" style="margin: 0; overflow: visible;">
+                            <div class="card-title"><i class="fas fa-chart-line"></i> Dashboard & Analytics</div>
+                            <div class="stats-card" style="box-shadow:none; background:transparent; padding:0;">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="totalLeadsLink">-</div>
+                                    <div class="stat-label">Total Leads</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="lastExtractionLink">-</div>
+                                    <div class="stat-label">Last Extraction</div>
+                                </div>
+                            </div>
+                            <div class="result-card" style="margin-top:1.5rem;">
+                                <div id="resultLink"></div>
+                            </div>
+                            <div class="action-buttons" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-direction: column;">
+                                <a href="/view-leads" class="btn btn-success" style="flex:1; font-size:1.1rem; padding:1rem 0; border-radius:1rem; justify-content:center; text-decoration:none;">
+                                    <i class="fas fa-table"></i> View Leads
+                                </a>
+                                <a href="/message-leads" class="btn btn-primary" style="flex:1; font-size:1.1rem; padding:1rem 0; border-radius:1rem; justify-content:center; text-decoration:none;">
+                                    <i class="fas fa-paper-plane"></i> Draft Message
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div id="result"></div>
     </div>
-
+    <div id="loaderOverlay" class="loader-overlay" style="display:none;">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-message">Extracting leads, please wait…</div>
+        </div>
+    </div>
+    <!-- AI Keyword Modal -->
+    <div id="keywordModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(30,42,70,0.35); z-index:10000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:18px; box-shadow:0 8px 32px rgba(10,102,194,0.13); padding:2.5rem 2.5rem 2rem 2.5rem; min-width:340px; max-width:90vw; max-height:90vh; overflow:auto;">
+            <h2 style="margin-top:0; color:var(--primary-dark); font-size:1.3rem;">AI Keyword Suggestions</h2>
+            <div id="modalKeywordList" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:0.8rem; margin-bottom:1.5rem;"></div>
+            <div style="margin-bottom:1.5rem;">
+                <label for="customKeywordInput" style="font-weight:600; color:var(--primary-dark); font-size:1rem;">Add your own keyword(s):</label>
+                <input type="text" id="customKeywordInput" class="form-input" placeholder="Type and press Enter to add, or separate with commas">
+                <div id="customKeywordTags" style="margin-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.5rem;"></div>
+            </div>
+            <div style="display:flex; gap:1rem; margin-bottom:1.5rem;">
+                <button type="button" id="modalSelectAll" class="btn" style="background:var(--primary-color);">Select All</button>
+                <button type="button" id="modalClearAll" class="btn" style="background:#666;">Clear All</button>
+            </div>
+            <div style="display:flex; gap:1rem; justify-content:flex-end;">
+                <button type="button" id="modalCancel" class="btn btn-danger">Cancel</button>
+                <button type="button" id="modalConfirm" class="btn btn-primary">Use Selected Keywords</button>
+            </div>
+        </div>
+    </div>
+    <!-- Error Modal -->
+    <div id="errorModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(30,42,70,0.35); z-index:10001; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:18px; box-shadow:0 8px 32px rgba(10,102,194,0.13); padding:2rem 2.5rem; min-width:300px; max-width:90vw;">
+            <h3 style="color:var(--error-color); margin-top:0;">Error</h3>
+            <div id="errorModalMsg" style="margin-bottom:1.5rem; color:#333;"></div>
+            <button type="button" id="errorModalClose" class="btn btn-danger" style="width:100%;">Close</button>
+        </div>
+    </div>
     <script>
-        // Show/hide API key field based on AI filtering checkbox
-        document.getElementById('useAiFiltering').addEventListener('change', function() {
-            const apiKeyGroup = document.getElementById('apiKeyGroup');
-            if (this.checked) {
-                apiKeyGroup.style.display = 'block';
-            } else {
-                apiKeyGroup.style.display = 'none';
-            }
-        });
+        try {
+            console.log('Script starting...');
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM Content Loaded...');
+                
+                // --- Country filter tags logic ---
+                window.countryList = [];
+                const countryInput = document.getElementById('countryFilterInput');
+                const countryTags = document.getElementById('countryTags');
+                const addCountryBtn = document.getElementById('addCountryBtn');
 
-        async function extractLeads() {
-            const resultDiv = document.getElementById('result');
-            const extractBtn = document.getElementById('extractBtn');
+                if (addCountryBtn) {
+                    addCountryBtn.onclick = function() {
+                        const val = countryInput.value.trim();
+                        if (val && !window.countryList.includes(val)) {
+                            window.countryList.push(val);
+                            addCountryTag(val);
+                            countryInput.value = ''; // Clear input after adding
+                        }
+                    };
+                }
+
+                if (countryInput) {
+                    countryInput.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (addCountryBtn) addCountryBtn.click();
+                        }
+                    });
+                }
+
+                function addCountryTag(val) {
+                    const tag = document.createElement('span');
+                    tag.style.cssText = 'background:#e8f5e8;color:#23272f;padding:0.3rem 0.7rem;border-radius:12px;display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;';
+                    tag.textContent = val;
+                    const removeBtn = document.createElement('button');
+                    removeBtn.type = 'button';
+                    removeBtn.textContent = '×';
+                    removeBtn.style.cssText = 'background:none;border:none;color:#d32f2f;font-size:1.1rem;cursor:pointer;';
+                    removeBtn.onclick = function() {
+                        window.countryList = window.countryList.filter(c => c !== val);
+                        tag.remove();
+                    };
+                    tag.appendChild(removeBtn);
+                    if (countryTags) countryTags.appendChild(tag);
+                }
+
+                // --- Position filter tags logic ---
+                window.positionList = [];
+                const positionInput = document.getElementById('positionFilterInput');
+                const positionTags = document.getElementById('positionTags');
+                const addPositionBtn = document.getElementById('addPositionBtn');
+
+                if (addPositionBtn) {
+                    addPositionBtn.onclick = function() {
+                        const val = positionInput.value.trim();
+                        if (val && !window.positionList.includes(val)) {
+                            window.positionList.push(val);
+                            addPositionTag(val);
+                            positionInput.value = '';
+                        }
+                    };
+                }
+
+                if (positionInput) {
+                    positionInput.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (addPositionBtn) addPositionBtn.click();
+                        }
+                    });
+                }
+
+                function addPositionTag(val) {
+                    const tag = document.createElement('span');
+                    tag.style.cssText = 'background:#e8f5e8;color:#23272f;padding:0.3rem 0.7rem;border-radius:12px;display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;';
+                    tag.textContent = val;
+                    const removeBtn = document.createElement('button');
+                    removeBtn.type = 'button';
+                    removeBtn.textContent = '×';
+                    removeBtn.style.cssText = 'background:none;border:none;color:#d32f2f;font-size:1.1rem;cursor:pointer;';
+                    removeBtn.onclick = function() {
+                        window.positionList = window.positionList.filter(p => p !== val);
+                        tag.remove();
+                    };
+                    tag.appendChild(removeBtn);
+                    if (positionTags) positionTags.appendChild(tag);
+                }
+            });
+
+            // Handle AI filtering checkbox if it exists
+            const useAiFilteringCheckbox = document.getElementById('useAiFiltering');
+            if (useAiFilteringCheckbox) {
+                useAiFilteringCheckbox.addEventListener('change', function() {
+                    const apiKeyGroup = document.getElementById('apiKeyGroup');
+                    if (apiKeyGroup) {
+                        if (this.checked) {
+                            apiKeyGroup.style.display = 'block';
+                        } else {
+                            apiKeyGroup.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
+            // Modal logic
+            function showKeywordModal(keywords, callback) {
+                const modal = document.getElementById('keywordModal');
+                const modalList = document.getElementById('modalKeywordList');
+                const customKeywordTags = document.getElementById('customKeywordTags');
+                const customKeywordInput = document.getElementById('customKeywordInput');
+
+                if (!modal || !modalList) return;
+
+                modalList.innerHTML = '';
+                keywords.forEach((keyword, idx) => {
+                    const div = document.createElement('div');
+                    div.style.cssText = 'display:flex;align-items:center;gap:0.5rem;padding:0.5rem;background:white;border-radius:6px;border:1px solid #e3eaf6;';
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.id = `modal-keyword-${idx}`;
+                    cb.value = keyword;
+                    cb.style.cssText = 'width:1rem;height:1rem;';
+                    const label = document.createElement('label');
+                    label.htmlFor = cb.id;
+                    label.textContent = keyword;
+                    label.style.cssText = 'font-size:0.9rem;font-weight:500;color:var(--text-color);cursor:pointer;flex:1;';
+                    div.appendChild(cb);
+                    div.appendChild(label);
+                    modalList.appendChild(div);
+                });
+
+                // Add custom keywords to the list
+                if (customKeywordInput) {
+                    const customKeywords = customKeywordInput.value.split(',').map(k => k.trim()).filter(k => k);
+                    customKeywords.forEach(keyword => addCustomKeywordTag(keyword));
+                }
+
+                modal.style.display = 'flex';
+
+                const modalCancel = document.getElementById('modalCancel');
+                const modalConfirm = document.getElementById('modalConfirm');
+                const modalSelectAll = document.getElementById('modalSelectAll');
+                const modalClearAll = document.getElementById('modalClearAll');
+
+                if (modalCancel) {
+                    modalCancel.onclick = function() {
+                        modal.style.display = 'none';
+                    };
+                }
+                if (modalConfirm) {
+                    modalConfirm.onclick = function() {
+                        const selected = Array.from(document.querySelectorAll('#modalKeywordList input[type="checkbox"]:checked')).map(cb => cb.value);
+                        const customSelected = Array.from(document.querySelectorAll('#customKeywordTags input[type="checkbox"]:checked')).map(cb => cb.value);
+                        callback(selected.concat(customSelected));
+                        modal.style.display = 'none';
+                    };
+                }
+                if (modalSelectAll) {
+                    modalSelectAll.onclick = function() {
+                        document.querySelectorAll('#modalKeywordList input[type="checkbox"]').forEach(cb => cb.checked = true);
+                        document.querySelectorAll('#customKeywordTags input[type="checkbox"]').forEach(cb => cb.checked = true);
+                    };
+                }
+                if (modalClearAll) {
+                    modalClearAll.onclick = function() {
+                        document.querySelectorAll('#modalKeywordList input[type="checkbox"]').forEach(cb => cb.checked = false);
+                        document.querySelectorAll('#customKeywordTags input[type="checkbox"]').forEach(cb => cb.checked = false);
+                    };
+                }
+            }
+
+            // Error modal logic
+            function showErrorModal(msg) {
+                const errorModalMsg = document.getElementById('errorModalMsg');
+                const errorModal = document.getElementById('errorModal');
+                if (errorModalMsg && errorModal) {
+                    errorModalMsg.textContent = msg;
+                    errorModal.style.display = 'flex';
+                }
+            }
+            
+            const errorModalClose = document.getElementById('errorModalClose');
+            if (errorModalClose) {
+                errorModalClose.onclick = function() {
+                    const errorModal = document.getElementById('errorModal');
+                    if (errorModal) errorModal.style.display = 'none';
+                };
+            }
+
+            async function extractLeads() {
+                const resultDiv = document.getElementById('result');
+                const extractBtn = document.getElementById('extractBtn');
+                const loaderOverlay = document.getElementById('loaderOverlay');
+                const targetCount = document.getElementById('targetCount').value;
+                const countryFilter = document.getElementById('countryFilterInput').value;
+                const includeCountry = document.getElementById('includeCountry').checked;
+                const positionFilter = document.getElementById('positionFilterInput').value;
+                const includePosition = document.getElementById('includePosition').checked;
+                const extractProfileData = document.getElementById('extractProfileData').checked;
+                const useAiFiltering = document.getElementById('useAiFiltering').checked;
+                const openaiApiKey = document.getElementById('openaiApiKey').value;
+                const basePrompt = document.getElementById('basePrompt').value;
+
+                // Check if AI filtering is enabled
+                if (useAiFiltering) {
+                    if (!basePrompt.trim()) {
+                        showErrorModal('Please enter your requirements in the base prompt field first.');
+                        return;
+                    }
+                    if (!openaiApiKey.trim()) {
+                        showErrorModal('Please enter your OpenAI API key to generate keywords.');
+                        return;
+                    }
+                    
+                    // Generate keywords and wait for user selection
+                    const formData = new FormData();
+                    formData.append('base_prompt', basePrompt);
+                    formData.append('openai_api_key', openaiApiKey);
+                    extractBtn.disabled = true;
+                    extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                    try {
+                        const response = await fetch('/generate-keywords', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const data = await response.json();
+                        if (response.ok) {
+                            // Show modal and wait for user selection
+                            await new Promise((resolve) => {
+                                showKeywordModal(data.keywords, async (selected) => {
+                                    const searchTerm = selected.join(', ');
+                                    await performExtraction(searchTerm, extractBtn, resultDiv, loaderOverlay, targetCount, includeCountry, includePosition, extractProfileData, useAiFiltering, openaiApiKey, basePrompt);
+                                    resolve();
+                                });
+                            });
+                            extractBtn.disabled = false;
+                            extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract Leads';
+                            return;
+                        } else {
+                            showErrorModal(data.error || 'Failed to generate keywords');
+                            extractBtn.disabled = false;
+                            extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract Leads';
+                            return;
+                        }
+                    } catch (error) {
+                        showErrorModal('An error occurred while generating keywords');
+                        extractBtn.disabled = false;
+                        extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract Leads';
+                        return;
+                    }
+                } else {
+                    // Direct extraction without AI filtering
+                    const searchTerm = basePrompt.trim() || '';
+                    await performExtraction(searchTerm, extractBtn, resultDiv, loaderOverlay, targetCount, includeCountry, includePosition, extractProfileData, useAiFiltering, openaiApiKey, basePrompt);
+                }
+            }
+
+            async function performExtraction(searchTerm, extractBtn, resultDiv, loaderOverlay, targetCount, includeCountry, includePosition, extractProfileData, useAiFiltering, openaiApiKey, basePrompt) {
+                extractBtn.disabled = true;
+                extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting...';
+                
+                resultDiv.style.display = 'block';
+                resultDiv.className = '';
+                resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting leads...';
+                if (loaderOverlay) loaderOverlay.style.display = 'flex';
+                
+                try {
+                    const formData = new FormData();
+                    formData.append('target_count', targetCount);
+                    formData.append('search_term', searchTerm);
+                    // Add all countries
+                    window.countryList.forEach(c => formData.append('country_filter[]', c));
+                    // Add all positions
+                    window.positionList.forEach(p => formData.append('position_filter[]', p));
+                    formData.append('include_country', includeCountry.toString());
+                    formData.append('include_position', includePosition.toString());
+                    formData.append('extract_profile_data', extractProfileData.toString());
+                    formData.append('use_ai_filtering', useAiFiltering.toString());
+                    if (openaiApiKey) {
+                        formData.append('openai_api_key', openaiApiKey);
+                    }
+                    formData.append('base_prompt', basePrompt);
+                    
+                    const response = await fetch('/extract-leads', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    if (response.ok) {
+                        resultDiv.className = 'success';
+                        resultDiv.innerHTML = `
+                            <i class="fas fa-check-circle"></i> ${data.message}
+                            <div class="action-buttons" style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+                                <a href="/view-leads" class="btn btn-success" style="flex:1; font-size:1.25rem; padding:1.2rem 0; border-radius:2rem; justify-content:center;">
+                                    <i class="fas fa-table"></i> View Leads
+                                </a>
+                                <a href="/message-leads" class="btn btn-primary" style="flex:1; font-size:1.25rem; padding:1.2rem 0; border-radius:2rem; justify-content:center;">
+                                    <i class="fas fa-paper-plane"></i> Draft Message
+                                </a>
+                            </div>
+                        `;
+                        updateStats(data.count);
+                    } else {
+                        resultDiv.className = 'error';
+                        resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred while extracting leads'}`;
+                    }
+                } catch (error) {
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
+                } finally {
+                    extractBtn.disabled = false;
+                    extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract Leads';
+                    if (loaderOverlay) loaderOverlay.style.display = 'none';
+                }
+            }
+        function updateStats(count) {
+            const totalLeads = document.getElementById('totalLeads');
+            const lastExtraction = document.getElementById('lastExtraction');
+            const totalLeadsLink = document.getElementById('totalLeadsLink');
+            const lastExtractionLink = document.getElementById('lastExtractionLink');
+            
+            if (count) {
+                if (totalLeads) totalLeads.textContent = count;
+                if (lastExtraction) lastExtraction.textContent = new Date().toLocaleTimeString();
+                if (totalLeadsLink) totalLeadsLink.textContent = count;
+                if (lastExtractionLink) lastExtractionLink.textContent = new Date().toLocaleTimeString();
+            }
+        }
+        async function logout() {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    alert(data.error || 'An error occurred while logging out');
+                }
+            } catch (error) {
+                alert('An error occurred while processing your request');
+            }
+        }
+
+        // Custom keyword input logic for modal
+        const customKeywordInput = document.getElementById('customKeywordInput');
+        const customKeywordTags = document.getElementById('customKeywordTags');
+        let customKeywords = [];
+        
+        if (customKeywordInput) {
+            customKeywordInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ',') {
+                    e.preventDefault();
+                    let value = customKeywordInput.value.trim();
+                    if (value) {
+                        value.split(',').map(v => v.trim()).filter(v => v).forEach(keyword => addCustomKeywordTag(keyword));
+                        customKeywordInput.value = '';
+                    }
+                }
+            });
+        }
+        
+        function addCustomKeywordTag(keyword) {
+            if (customKeywords.includes(keyword)) return;
+            customKeywords.push(keyword);
+            const tag = document.createElement('span');
+            tag.style.cssText = 'background:#e8f5e8;color:#23272f;padding:0.3rem 0.7rem;border-radius:12px;display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;';
+            tag.textContent = keyword;
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.textContent = '×';
+            removeBtn.style.cssText = 'background:none;border:none;color:#d32f2f;font-size:1.1rem;cursor:pointer;';
+            removeBtn.onclick = function() {
+                customKeywords = customKeywords.filter(k => k !== keyword);
+                tag.remove();
+            };
+            tag.appendChild(removeBtn);
+            if (customKeywordTags) customKeywordTags.appendChild(tag);
+        }
+        // Reset custom keywords when modal opens
+        function resetCustomKeywords() {
+            customKeywords = [];
+            if (customKeywordTags) customKeywordTags.innerHTML = '';
+            if (customKeywordInput) customKeywordInput.value = '';
+        }
+        // Update showKeywordModal to reset custom keywords
+        const originalShowKeywordModal = showKeywordModal;
+        showKeywordModal = function(keywords, callback) {
+            resetCustomKeywords();
+            originalShowKeywordModal(keywords, callback);
+        };
+
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.getElementById('extractor-tab').style.display = 'none';
+            document.getElementById('link-tab').style.display = 'none';
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            document.querySelector('.tab-button[onclick*="' + tabName + '"]').classList.add('active');
+        }
+        // Default: show extractor tab
+        switchTab('extractor');
+
+        // Handle the link extraction form
+        const linkForm = document.getElementById('linkForm');
+        
+        if (linkForm) {
+            linkForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                var formData = new FormData(this);
+                var linkedinUrl = formData.get('linkedin_url');
+                var targetCount = formData.get('target_count');
+                
+                if (!linkedinUrl || linkedinUrl.trim() === '') {
+                    alert('Please enter a LinkedIn URL');
+                    return;
+                }
+                
+                // Get the result div from the current tab
+                var resultDiv = document.getElementById('resultLink');
+                if (!resultDiv) {
+                    resultDiv = document.createElement('div');
+                    resultDiv.id = 'resultLink';
+                    // Find the current active tab content and append the result div
+                    var activeTab = document.querySelector('.tab-content.active');
+                    if (activeTab) {
+                        activeTab.appendChild(resultDiv);
+                    }
+                }
+                
+                resultDiv.style.display = 'block';
+                resultDiv.className = '';
+                resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting leads from URL...';
+                
+                var extractBtn = document.getElementById('extractFromLinkBtn');
+                extractBtn.disabled = true;
+                extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting...';
+                
+                try {
+                    var response = await fetch('/extract-from-link', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    var data = await response.json();
+                    
+                    if (response.ok) {
+                        resultDiv.className = 'success';
+                        resultDiv.innerHTML = `
+                            <i class="fas fa-check-circle"></i> ${data.message}
+                        `;
+                        updateStats(data.count);
+                    } else {
+                        resultDiv.className = 'error';
+                        resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred while extracting leads'}`;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
+                } finally {
+                    extractBtn.disabled = false;
+                    extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract from Link';
+                }
+            });
+        }
+        
+        // Also add click event listener to the button as backup
+        const extractFromLinkBtn = document.getElementById('extractFromLinkBtn');
+        
+        if (extractFromLinkBtn) {
+            extractFromLinkBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                // Get the form
+                const linkForm = document.getElementById('linkForm');
+                if (!linkForm) {
+                    console.error('linkForm not found in click handler');
+                    return;
+                }
+                
+                // Get form data
+                var formData = new FormData(linkForm);
+                var linkedinUrl = formData.get('linkedin_url');
+                var targetCount = formData.get('target_count');
+                
+                if (!linkedinUrl || linkedinUrl.trim() === '') {
+                    alert('Please enter a LinkedIn URL');
+                    return;
+                }
+                
+                // Get the result div from the current tab
+                var resultDiv = document.getElementById('resultLink');
+                if (!resultDiv) {
+                    resultDiv = document.createElement('div');
+                    resultDiv.id = 'resultLink';
+                    // Find the current active tab content and append the result div
+                    var activeTab = document.querySelector('.tab-content.active');
+                    if (activeTab) {
+                        activeTab.appendChild(resultDiv);
+                    }
+                }
+                
+                resultDiv.style.display = 'block';
+                resultDiv.className = '';
+                resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting leads from URL...';
+                
+                var extractBtn = document.getElementById('extractFromLinkBtn');
+                extractBtn.disabled = true;
+                extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting...';
+                
+                try {
+                    var response = await fetch('/extract-from-link', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    var data = await response.json();
+                    
+                    if (response.ok) {
+                        resultDiv.className = 'success';
+                        resultDiv.innerHTML = `
+                            <i class="fas fa-check-circle"></i> ${data.message}
+                        `;
+                        updateStats(data.count);
+                    } else {
+                        resultDiv.className = 'error';
+                        resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred while extracting leads'}`;
+                    }
+                } catch (error) {
+                    console.error('Error (from button click):', error);
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
+                } finally {
+                    extractBtn.disabled = false;
+                    extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract from Link';
+                }
+            });
+        }
+        
+        // Global function for inline onclick handler for main extraction
+        window.handleExtractLeads = async function() {
+            // Get the form
+            const extractForm = document.querySelector('#extractor-tab form');
+            if (!extractForm) {
+                console.error('extractForm not found in handleExtractLeads');
+                return;
+            }
+            
+            // Get form data
             const targetCount = document.getElementById('targetCount').value;
+            const countryFilter = document.getElementById('countryFilterInput').value;
+            const includeCountry = document.getElementById('includeCountry').checked;
+            const positionFilter = document.getElementById('positionFilterInput').value;
+            const includePosition = document.getElementById('includePosition').checked;
             const extractProfileData = document.getElementById('extractProfileData').checked;
             const useAiFiltering = document.getElementById('useAiFiltering').checked;
             const openaiApiKey = document.getElementById('openaiApiKey').value;
+            const basePrompt = document.getElementById('basePrompt').value;
+            
+            if (!basePrompt.trim()) {
+                alert('Please enter your requirements in the base prompt field first.');
+                return;
+            }
+            
+            // Get the result div from the current tab
+            var resultDiv = document.getElementById('result');
+            if (!resultDiv) {
+                resultDiv = document.createElement('div');
+                resultDiv.id = 'result';
+                // Find the current active tab content and append the result div
+                var activeTab = document.querySelector('.tab-content.active');
+                if (activeTab) {
+                    activeTab.appendChild(resultDiv);
+                }
+            }
             
             resultDiv.style.display = 'block';
             resultDiv.className = '';
             resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting leads...';
+            
+            var extractBtn = document.getElementById('extractBtn');
             extractBtn.disabled = true;
+            extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting...';
             
             try {
+                // If AI filtering is enabled, generate keywords first
+                let searchTerm = basePrompt.trim();
+                
+                if (useAiFiltering && openaiApiKey.trim()) {
+                    // Generate keywords using AI
+                    const keywordFormData = new FormData();
+                    keywordFormData.append('base_prompt', basePrompt);
+                    keywordFormData.append('openai_api_key', openaiApiKey);
+                    
+                    const keywordResponse = await fetch('/generate-keywords', {
+                        method: 'POST',
+                        body: keywordFormData
+                    });
+                    
+                    const keywordData = await keywordResponse.json();
+                    
+                    if (keywordResponse.ok) {
+                        // Show keyword modal and wait for user selection
+                        await new Promise((resolve) => {
+                            showKeywordModal(keywordData.keywords, (selected) => {
+                                searchTerm = selected.join(', ');
+                                resolve();
+                            });
+                        });
+                    } else {
+                        resultDiv.className = 'error';
+                        resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${keywordData.error || 'Failed to generate keywords'}`;
+                        extractBtn.disabled = false;
+                        extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract Leads';
+                        return;
+                    }
+                }
+                
+                // Now perform the extraction
                 const formData = new FormData();
                 formData.append('target_count', targetCount);
+                formData.append('search_term', searchTerm);
+                // Add all countries
+                window.countryList.forEach(c => formData.append('country_filter[]', c));
+                // Add all positions
+                window.positionList.forEach(p => formData.append('position_filter[]', p));
+                formData.append('include_country', includeCountry.toString());
+                formData.append('include_position', includePosition.toString());
                 formData.append('extract_profile_data', extractProfileData.toString());
                 formData.append('use_ai_filtering', useAiFiltering.toString());
                 if (openaiApiKey) {
                     formData.append('openai_api_key', openaiApiKey);
                 }
+                formData.append('base_prompt', basePrompt);
                 
                 const response = await fetch('/extract-leads', {
                     method: 'POST',
@@ -474,12 +1329,12 @@
                     resultDiv.className = 'success';
                     resultDiv.innerHTML = `
                         <i class="fas fa-check-circle"></i> ${data.message}
-                        <div class="action-buttons">
-                            <a href="/view-leads">
+                        <div class="action-buttons" style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+                            <a href="/view-leads" class="btn btn-success" style="flex:1; font-size:1.25rem; padding:1.2rem 0; border-radius:2rem; justify-content:center;">
                                 <i class="fas fa-table"></i> View Leads
                             </a>
-                            <a href="/download/${data.filename}" download>
-                                <i class="fas fa-file-download"></i> Download CSV
+                            <a href="/message-leads" class="btn btn-primary" style="flex:1; font-size:1.25rem; padding:1.2rem 0; border-radius:2rem; justify-content:center;">
+                                <i class="fas fa-paper-plane"></i> Draft Message
                             </a>
                         </div>
                     `;
@@ -489,39 +1344,87 @@
                     resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred while extracting leads'}`;
                 }
             } catch (error) {
+                console.error('Error (from handleExtractLeads):', error);
                 resultDiv.className = 'error';
                 resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
             } finally {
                 extractBtn.disabled = false;
+                extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract Leads';
             }
-        }
+        };
 
-        function updateStats(count) {
-            const totalLeads = document.getElementById('totalLeads');
-            const lastExtraction = document.getElementById('lastExtraction');
+        // Global function for inline onclick handler for link extraction
+        window.handleExtractFromLink = async function() {
+            // Get the form
+            const linkForm = document.getElementById('linkForm');
+            if (!linkForm) {
+                console.error('linkForm not found in handleExtractFromLink');
+                return;
+            }
             
-            if (count) {
-                totalLeads.textContent = count;
-                lastExtraction.textContent = new Date().toLocaleTimeString();
+            // Get form data
+            var formData = new FormData(linkForm);
+            var linkedinUrl = formData.get('linkedin_url');
+            var targetCount = formData.get('target_count');
+            
+            if (!linkedinUrl || linkedinUrl.trim() === '') {
+                alert('Please enter a LinkedIn URL');
+                return;
             }
-        }
-
-        async function logout() {
+            
+            // Get the result div from the current tab
+            var resultDiv = document.getElementById('resultLink');
+            if (!resultDiv) {
+                resultDiv = document.createElement('div');
+                resultDiv.id = 'resultLink';
+                // Find the current active tab content and append the result div
+                var activeTab = document.querySelector('.tab-content.active');
+                if (activeTab) {
+                    activeTab.appendChild(resultDiv);
+                }
+            }
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+            resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting leads from URL...';
+            
+            var extractBtn = document.getElementById('extractFromLinkBtn');
+            extractBtn.disabled = true;
+            extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Extracting...';
+            
             try {
-                const response = await fetch('/logout', {
-                    method: 'POST'
+                var response = await fetch('/extract-from-link', {
+                    method: 'POST',
+                    body: formData
                 });
                 
-                const data = await response.json();
+                var data = await response.json();
                 
                 if (response.ok) {
-                    window.location.href = '/';
+                    resultDiv.className = 'success';
+                    resultDiv.innerHTML = `
+                        <i class="fas fa-check-circle"></i> ${data.message}
+                    `;
+                    updateStats(data.count);
                 } else {
-                    alert(data.error || 'An error occurred while logging out');
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.error || 'An error occurred while extracting leads'}`;
                 }
             } catch (error) {
-                alert('An error occurred while processing your request');
+                console.error('Error (from handleExtractFromLink):', error);
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred while processing your request';
+            } finally {
+                extractBtn.disabled = false;
+                extractBtn.innerHTML = '<i class="fas fa-download"></i> Extract from Link';
             }
+        };
+        
+        console.log('Script finished loading...');
+        
+        } catch (error) {
+            console.error('JavaScript error:', error);
+            alert('JavaScript error: ' + error.message);
         }
     </script>
 </body>

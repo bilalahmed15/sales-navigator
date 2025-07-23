@@ -25,6 +25,14 @@
             box-sizing: border-box;
         }
 
+        body, html {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
@@ -35,9 +43,14 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background: var(--bg-color);
         }
 
         .header {
@@ -140,88 +153,73 @@
         }
 
         .table-container {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            overflow-x: auto;
+            flex: 1 1 0;
+            width: 100vw;
+            height: 100vh;
+            max-height: 100vh;
+            min-height: 0;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
             overflow-y: auto;
-            max-height: 480px;
-            min-height: 200px;
-            animation: fadeIn 0.5s ease;
+            overflow-x: auto;
+            background: var(--card-bg);
+            border-radius: 0;
+            box-shadow: none;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         table {
             width: 100%;
+            height: 100%;
             border-collapse: collapse;
-            font-size: 0.92rem;
-            min-width: 800px;
+            font-size: 0.93rem;
+            min-width: 0;
+            margin: 0;
         }
-
         th, td {
-            padding: 0.5rem 0.8rem;
+            padding: 0.55rem 0.8rem;
             text-align: left;
-            vertical-align: top;
-            word-break: break-word;
-            white-space: normal;
+            vertical-align: middle;
+            border-bottom: 1px solid #e6e6e6;
         }
-
         th {
             background-color: #f8f9fa;
-            color: var(--text-color);
-            font-weight: 600;
-            font-size: 0.92rem;
+            color: #23272f;
+            font-weight: 700;
+            font-size: 0.97rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            position: sticky;
-            top: 0;
-            z-index: 2;
+            white-space: nowrap;
+            min-width: 90px;
+            border-top: 1px solid #e6e6e6;
         }
-
-        tr {
-            border-bottom: 1px solid #eee;
-            transition: var(--transition);
-        }
-
         tr:nth-child(even) {
-            background-color: #f6f6f6;
+            background: #f6f8fa;
         }
-
-        tr:last-child {
-            border-bottom: none;
-        }
-
         tr:hover {
-            background-color: #e3e9f0;
+            background: #eaf4ff;
         }
-
-        td a {
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
+        td {
+            font-size: 0.95rem;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+        .score-badge {
+            padding: 0.2rem 0.7rem;
+            border-radius: 10px;
+            font-weight: 600;
+            min-width: 36px;
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.92rem;
+            justify-content: center;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 0.95rem;
         }
-
-        td a:hover {
-            color: var(--primary-dark);
-        }
-
-        td a i {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
+        .score-green { background: var(--success-color); color: #fff; }
+        .score-orange { background: #ff9800; color: #fff; }
+        .score-red { background: #f44336; color: #fff; }
 
         .pagination {
             display: flex;
@@ -277,14 +275,22 @@
             color: white;
         }
 
-        .score-badge {
-            color: white;
+        td a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.92rem;
         }
 
-        td .match-badge, td .score-badge {
-            white-space: nowrap;
-            word-break: keep-all;
-            font-size: 0.95rem;
+        td a:hover {
+            color: var(--primary-dark);
+        }
+
+        td a i {
+            font-size: 0.85rem;
+            opacity: 0.8;
         }
 
         @media (max-width: 900px) {
@@ -316,6 +322,8 @@
             <div class="stats">
                 <i class="fas fa-chart-bar"></i>
                 Total Leads: {{ count }}
+                <span style="margin-left:1.5rem;"><i class="fas fa-percentage"></i> Success Rate: <b>{{ '%.1f' % success_rate }}%</b></span>
+                <span style="margin-left:1.5rem;"><i class="fas fa-fire" style="color:#ff9800;"></i> Hot Leads (&gt;0.6): <b>{{ hot_leads_count }}</b></span>
             </div>
         </div>
         
@@ -326,6 +334,9 @@
             <a href="/download/{{ filename }}" class="btn btn-success" download>
                 <i class="fas fa-file-download"></i> Download CSV
             </a>
+            <a href="/message-leads" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Draft Message
+            </a>
         </div>
         
         <div class="table-container">
@@ -333,6 +344,10 @@
                 <thead>
                     <tr>
                         <th>LinkedIn Profile URL</th>
+                        {% if data and data[0] and data[0].get('first_name') %}
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        {% endif %}
                         {% if data and data[0] and data[0].get('headline') %}
                         <th>Headline</th>
                         <th>About</th>
@@ -353,6 +368,10 @@
                                 {{ row['url'] }}
                             </a>
                         </td>
+                        {% if row.get('first_name') %}
+                        <td>{{ row['first_name'] }}</td>
+                        <td>{{ row['last_name'] }}</td>
+                        {% endif %}
                         {% if row.get('headline') %}
                         <td>{{ row['headline'][:100] }}{% if row['headline']|length > 100 %}...{% endif %}</td>
                         <td>{{ row['about'][:150] }}{% if row['about']|length > 150 %}...{% endif %}</td>
@@ -366,7 +385,7 @@
                         <td>{{ row['reason'][:100] }}{% if row['reason']|length > 100 %}...{% endif %}</td>
                         <td>
                             {% set score = row['score']|float %}
-                            <span class="score-badge" style="background-color: {% if score >= 0.7 %}var(--success-color){% elif score >= 0.4 %}#ff9800{% else %}#f44336{% endif %};">
+                            <span class="score-badge {% if score >= 0.7 %}score-green{% elif score >= 0.4 %}score-orange{% else %}score-red{% endif %}">
                                 {{ "%.2f"|format(score) }}
                             </span>
                         </td>

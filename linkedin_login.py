@@ -30,51 +30,54 @@ class LinkedInLogin:
         try:
             # Get or create driver instance
             self.driver = self.setup_browser()
-            
-            # Login to LinkedIn
             self.driver.get("https://www.linkedin.com/login")
-            
-            # Wait for and fill in login form
             username_field = self.wait_and_find_element(By.ID, "username")
             password_field = self.wait_and_find_element(By.ID, "password")
-            
             username_field.send_keys(email)
             password_field.send_keys(password)
             self.driver.find_element(By.CLASS_NAME, "btn__primary--large").click()
-            
-            # Wait for login to complete and handle Sales Navigator login if needed
-            time.sleep(5)  # Wait for initial login to complete
-            
+            time.sleep(3)
+
+            # Check for two-step challenge
+            try:
+                two_step_div = WebDriverWait(self.driver, 5).until(
+                    EC.presence_of_element_located((By.ID, "two-step-challenge"))
+                )
+                print("Two-step challenge detected. Waiting for code input.")
+                return '2fa', "Two-step authentication required. Please enter the code."
+            except Exception:
+                time.sleep(5)
+                pass  # No 2FA, continue
+
             # Check if we need to login to Sales Navigator
             try:
-                # Look for Sales Navigator login elements
                 sales_nav_email = self.wait_and_find_element(By.CSS_SELECTOR, "input[type='email']", timeout=5)
                 sales_nav_password = self.wait_and_find_element(By.CSS_SELECTOR, "input[type='password']", timeout=5)
-                
-                # If we found the fields, we need to login to Sales Navigator
                 sales_nav_email.send_keys(email)
                 sales_nav_password.send_keys(password)
-                
-                # Find and click the Sales Navigator login button
                 login_button = self.wait_and_find_element(By.CSS_SELECTOR, "button[type='submit']", timeout=5)
                 login_button.click()
-                
-                # Wait for Sales Navigator login to complete
-                time.sleep(5)
+                time.sleep(8)
             except Exception as e:
                 print("No Sales Navigator login required or error:", str(e))
-            
-            # Navigate to the search page
-            search_url = "https://www.linkedin.com/sales/search/people?query=(spellCorrectionEnabled%3Atrue%2CrecentSearchParam%3A(id%3A3756865305%2CdoLogHistory%3Atrue)%2Ckeywords%3AAnti-corrosion)&sessionId=p7n9oaNfRVOWg9ReV5K7GA%3D%3D"
-            self.driver.get(search_url)
-            
-            # Wait for search results to load
-            time.sleep(5)
-            
+
+            time.sleep(3)
             return True, "Successfully logged in"
-            
         except Exception as e:
             print(f"Login error: {str(e)}")
+            return False, str(e)
+
+    def submit_2fa_code(self, code):
+        try:
+            code_input = self.wait_and_find_element(By.CLASS_NAME, "form__input--text")
+            code_input.clear()
+            code_input.send_keys(code)
+            submit_btn = self.driver.find_element(By.CLASS_NAME, "form__submit")
+            submit_btn.click()
+            time.sleep(3)
+            return True, "2FA code submitted. Login should continue."
+        except Exception as e:
+            print(f"2FA submission error: {str(e)}")
             return False, str(e)
 
     def quit(self):
